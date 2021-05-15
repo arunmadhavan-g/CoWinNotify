@@ -7,8 +7,10 @@ const today =  () => {
 }
 
 
-const checkCowin = () => 
-	fetch('https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=571&date='+today(), {
+const checkCowin = () => {
+	console.log("Trying to fetch data from Cowin");
+
+	return fetch('https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=571&date='+today(), {
 		headers: {
 			"user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"
 		},
@@ -16,6 +18,7 @@ const checkCowin = () =>
 		}
 	 )
 	.then( response => response.json())
+}
 
 const fetchAvailable = (data) => {
 	return data.centers.filter(x => x.sessions.some( y => y.min_age_limit === 18 && y.available_capacity > 0) )	
