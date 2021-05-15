@@ -8,9 +8,9 @@ const today =  () => {
 
 
 const checkCowin = () => {
-	console.log("Trying to fetch data from Cowin");
-
-	return fetch('https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=571&date='+today(), {
+	const url = 'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=571&date='+today();
+	console.log(new Date(), "Trying to fetch data from Cowin", url);
+	return fetch(url , {
 		headers: {
 			"user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"
 		},
