@@ -42,12 +42,20 @@ const transporter = nodemailer.createTransport({
   });
 
 
+const slotContent =  (data) => 
+	"<ul>"+data.filter(x => x.available_capacity > 0).map(x => "<li>"+x.date+" / "+x.available_capacity+"</li>")+"</ul>"
+
+
+const centerContent = (data) => 
+	"<table border='1'><tr><th>Center Name</th><th>Center Address</th><th>Pincode</th><th>Date / Availability</th></tr>" + 
+	data.map(x => "<tr><td>"+x.name+"</td><td>"+x.address+"</td><td>"+ x.pincode +"</td><td>" + slotContent(x.sessions))+" </td></tr></table>"
+
 const sendMail  = (data) => 
 	transporter.sendMail({				
 				    from: process.env.EMAIL_ID, // sender address
 				    to: process.env.RECEPIENTS, // list of receivers
 				    subject: "COWIN Alert - 18+ available Now !!!", // Subject line
-				    html: "<b>COWNIN Available in the following Locations</b><ul>" + data.map(x => "<li>"+x.name+":"+x.address+"</li>")+"</ul>"
+				    html: "<b>COWNIN Available in the following Locations</b>"+centerContent(data)
 				  })
 
 
